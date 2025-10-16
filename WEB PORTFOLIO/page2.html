@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts Magical Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', 'Georgia', serif;
+            overflow: hidden;
+            cursor: none;
+            background: #0a0a0a;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('p2image/92091764-0eff-4a76-8322-0bc480bc60be.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            z-index: 0;
+        }
+
+        .background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .ember {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255,140,0,0.8), transparent);
+            border-radius: 50%;
+            animation: floatEmber 8s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        @keyframes floatEmber {
+            0% { opacity: 0; transform: translateY(100vh) translateX(0); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) translateX(50px); }
+        }
+
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 0;
+            padding: 5vh 5vw;
+            z-index: 1;
+        }
+
+        .crest-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #gryffindor-wrapper { grid-column: 2; grid-row: 1; }
+        #hufflepuff-wrapper { grid-column: 1; grid-row: 2; }
+        #slytherin-wrapper { grid-column: 3; grid-row: 2; }
+        #ravenclaw-wrapper { grid-column: 2; grid-row: 3; }
+        #hogwarts-wrapper { grid-column: 2; grid-row: 2; z-index: 10; }
+
+        .crest {
+            width: clamp(130px, 20vmin, 220px); /* was 100px–180px */
+            height: clamp(130px, 20vmin, 220px);
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+            position: relative;
+        }
+
+        .crest::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .crest:hover::before {
+            opacity: 0.6;
+            box-shadow: 0 0 40px currentColor;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+
+        .crest:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 40px currentColor);
+        }
+
+        #hogwarts-crest {
+            background-image: url('p2image/bb5e386e-7887-433b-8f1c-c5b02507ffcb-removebg-preview.png');
+            width: clamp(150px, 24vmin, 260px); /* slightly larger center crest */
+            height: clamp(150px, 24vmin, 260px);
+            filter: drop-shadow(0 0 30px rgba(255,215,0,0.6));
+            animation: centralGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes centralGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.6)); }
+            50% { filter: drop-shadow(0 0 50px rgba(255,215,0,0.9)); }
+        }
+
+        #hogwarts-crest::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: radiateLight 3s ease-in-out infinite;
+        }
+
+        @keyframes radiateLight {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        #gryffindor { background-image: url('p2image/85f6803b-698e-4c6f-bb1e-d6b8254b6ec0-removebg-previe.png'); color: #ff4444; }
+        #slytherin { background-image: url('p2image/ca3b6928-c200-4b1e-9f65-dcd9d00498e9-removebg-preview.png'); color: #2ecc71; }
+        #ravenclaw { background-image: url('p2image/1d6bb08c-3670-4e63-bdc2-28e08b5fffe3-removebg-preview.png'); color: #3498db; }
+        #hufflepuff { background-image: url('p2image/4f686d17-4036-4e51-aa4f-efa3e39ab75a-removebg-preview.png'); color: #f1c40f; }
+
+        .electric-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(147,112,219,0.8), transparent);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 20px rgba(147,112,219,0.6);
+        }
+
+        .cursor-trail {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(147,112,219,0.6), transparent);
+            pointer-events: none;
+            z-index: 9998;
+            animation: fadeTrail 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeTrail {
+            to { opacity: 0; transform: scale(2); }
+        }
+
+        .portal-effect {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .portal-effect.active {
+            animation: portalBurst 1.2s ease-out forwards;
+        }
+
+        @keyframes portalBurst {
+            0% {
+                width: 0; height: 0; opacity: 1;
+                box-shadow: 0 0 0 0 currentColor, inset 0 0 50px currentColor;
+            }
+            40% {
+                width: 400px; height: 400px; opacity: 0.9;
+                box-shadow: 0 0 100px 50px currentColor, inset 0 0 100px currentColor;
+            }
+            100% {
+                width: 3000px; height: 3000px; opacity: 0;
+                box-shadow: 0 0 200px 100px currentColor, inset 0 0 200px currentColor;
+            }
+        }
+
+        .label {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: clamp(11px, 1.2vmin, 16px);
+            text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px currentColor;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .crest:hover .label {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 3vh 5vw;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2vh 5vw;
+            }
+            
+            .label {
+                font-size: 10px;
+                bottom: -25px;
+            }
+        }
+
+        /* Floating Candles */
+        .candle {
+            position: fixed;
+            width: 12px;
+            height: 30px;
+            background: linear-gradient(to top, #ffecb3 40%, #fff8e1 80%);
+            border-radius: 4px;
+            box-shadow: 0 0 15px 5px rgba(255, 230, 150, 0.6);
+            animation: floatCandle 10s ease-in-out infinite;
+            opacity: 0.8;
+            z-index: 2;
+    }
+    
+    .candle::after {
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 10px;
+        background: radial-gradient(circle, #ffcc80 30%, transparent 70%);
+        border-radius: 50%;
+        box-shadow: 0 0 8px 3px rgba(255, 200, 120, 0.8);
+    }
+    
+    @keyframes floatCandle {
+        0% { transform: translateY(0) translateX(0); }
+        50% { transform: translateY(-20px) translateX(10px); }
+        100% { transform: translateY(0) translateX(0); }
+    }
+
+    </style>
+</head>
+<body>
+    <div class="background" id="bg"></div>
+    <canvas class="electric-canvas" id="electricCanvas"></canvas>
+    <div class="custom-cursor"></div>
+    <div class="portal-effect"></div>
+    
+    <div class="container">
+        <div class="crest-wrapper" id="gryffindor-wrapper">
+            <div class="crest" id="gryffindor" onclick="window.location.href='page3.html'">
+                <div class="label">ABOUT ME</div>
+            </div>
+        </div>
+
+        <div class="crest-wrapper" id="hufflepuff-wrapper">
+            <div class="crest" id="hufflepuff" onclick="window.location.href='page5.html'">
+                <div class="label">MASTERPIECES</div>
+            </div>
+        </div>
+
+        <div class="crest-wrapper" id="hogwarts-wrapper">
+            <div class="crest" id="hogwarts-crest" onclick="window.location.href='index.html'">
+                <div class="label">BACK HOME</div>
+            </div>
+        </div>
+
+        <div class="crest-wrapper" id="slytherin-wrapper">
+            <div class="crest" id="slytherin" onclick="window.location.href='page4.html'">
+                <div class="label">HISTORICAL STORIES</div>
+            </div>
+        </div>
+
+        <div class="crest-wrapper" id="ravenclaw-wrapper">
+            <div class="crest" id="ravenclaw" onclick="window.location.href='page6.html'">
+                <div class="label">INVITATION</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Canvas setup for electric connections
+        const canvas = document.getElementById('electricCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Make sure the canvas is BEHIND the crests
+        canvas.style.zIndex = "0"; // lower than crests
+        document.querySelector('.container').style.zIndex = "1"; // crests above canvas;
+
+        // Get crest positions
+        function getCrestCenter(id) {
+            const el = document.getElementById(id);
+            const rect = el.getBoundingClientRect();
+            return {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2
+            };
+        }
+
+        // Electric connection class
+        class ElectricConnection {
+            constructor(fromId, toId, color) {
+                this.fromId = fromId;
+                this.toId = toId;
+                this.color = color;
+                this.particles = [];
+                this.intensity = 0.5;
+                this.hovered = false;
+                this.offset = Math.random() * 100;
+            }
+
+            draw(time) {
+                const from = getCrestCenter(this.fromId);
+                const to = getCrestCenter(this.toId);
+                
+                // Main lightning path
+                ctx.save();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = this.hovered ? 3 : 2;
+                ctx.globalAlpha = 0.6 + Math.sin(time * 0.003 + this.offset) * 0.2;
+                ctx.shadowBlur = this.hovered ? 25 : 15;
+                ctx.shadowColor = this.color;
+
+                // Draw lightning bolt path
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                
+                const segments = 8;
+                for (let i = 1; i <= segments; i++) {
+                    const t = i / segments;
+                    const x = from.x + (to.x - from.x) * t;
+                    const y = from.y + (to.y - from.y) * t;
+                    const offset = Math.sin(time * 0.005 + t * 5 + this.offset) * (this.hovered ? 15 : 8);
+                    
+                    if (Math.abs(to.x - from.x) > Math.abs(to.y - from.y)) {
+                        ctx.lineTo(x, y + offset);
+                    } else {
+                        ctx.lineTo(x + offset, y);
+                    }
+                }
+                
+                ctx.stroke();
+
+                // Glow layer
+                ctx.globalAlpha = 0.3;
+                ctx.lineWidth = this.hovered ? 8 : 5;
+                ctx.shadowBlur = 30;
+                ctx.beginPath();
+                ctx.moveTo(from.x, from.y);
+                ctx.lineTo(to.x, to.y);
+                ctx.stroke();
+
+                ctx.restore();
+
+                // Draw particles
+                this.updateParticles(from, to, time);
+            }
+
+            updateParticles(from, to, time) {
+                // Create new particles
+                if (Math.random() < (this.hovered ? 0.15 : 0.05)) {
+                    this.particles.push({
+                        progress: 0,
+                        speed: 0.005 + Math.random() * 0.01,
+                        size: 3 + Math.random() * 4
+                    });
+                }
+
+                // Update and draw particles
+                this.particles = this.particles.filter(p => {
+                    p.progress += p.speed;
+                    
+                    if (p.progress >= 1) return false;
+
+                    const x = from.x + (to.x - from.x) * p.progress;
+                    const y = from.y + (to.y - from.y) * p.progress;
+
+                    ctx.save();
+                    ctx.fillStyle = this.color;
+                    ctx.shadowBlur = 15;
+                    ctx.shadowColor = this.color;
+                    ctx.globalAlpha = 1 - p.progress;
+                    ctx.beginPath();
+                    ctx.arc(x, y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+
+                    return true;
+                });
+            }
+        }
+
+        // Create connections
+        const connections = [
+            new ElectricConnection('hogwarts-crest', 'gryffindor', '#ff4444'),
+            new ElectricConnection('hogwarts-crest', 'slytherin', '#2ecc71'),
+            new ElectricConnection('hogwarts-crest', 'ravenclaw', '#3498db'),
+            new ElectricConnection('hogwarts-crest', 'hufflepuff', '#f1c40f')
+        ];
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const time = Date.now();
+            
+            connections.forEach(conn => conn.draw(time));
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+        // 🪄 Make canvas and connections responsive
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                animate(); // re-render after resize
+                }, 200);
+            });
+
+
+        // Hover effects
+        document.querySelectorAll('.crest').forEach((crest, idx) => {
+            crest.addEventListener('mouseenter', function() {
+                if (this.id !== 'hogwarts-crest') {
+                    const conn = connections.find(c => c.toId === this.id);
+                    if (conn) conn.hovered = true;
+                }
+            });
+            
+            crest.addEventListener('mouseleave', function() {
+                if (this.id !== 'hogwarts-crest') {
+                    const conn = connections.find(c => c.toId === this.id);
+                    if (conn) conn.hovered = false;
+                }
+            });
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            if (Math.random() > 0.8) {
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+                setTimeout(() => trail.remove(), 600);
+            }
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Create floating embers
+        const bg = document.getElementById('bg');
+        for (let i = 0; i < 30; i++) {
+            const ember = document.createElement('div');
+            ember.className = 'ember';
+            ember.style.left = Math.random() * 100 + '%';
+            ember.style.animationDelay = Math.random() * 8 + 's';
+            ember.style.animationDuration = (8 + Math.random() * 4) + 's';
+            bg.appendChild(ember);
+        }
+
+        // Create floating candles
+        for (let i = 0; i < 20; i++) {
+            const candle = document.createElement('div');
+            candle.className = 'candle';
+            candle.style.left = Math.random() * 100 + '%';
+            candle.style.top = Math.random() * 80 + '%';
+            candle.style.animationDelay = Math.random() * 5 + 's';
+            candle.style.animationDuration = (8 + Math.random() * 5) + 's';
+            document.body.appendChild(candle);
+        }
+
+
+        // Navigation with lightning surge
+        function navigate(page, element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            const color = window.getComputedStyle(element).color;
+            
+            // Lightning surge effect
+            const conn = connections.find(c => c.toId === element.id);
+            if (conn) {
+                conn.intensity = 2;
+                
+                // Create intense flash
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        conn.particles.push({
+                            progress: 0,
+                            speed: 0.02,
+                            size: 5 + Math.random() * 5
+                        });
+                    }, i * 10);
+                }
+            }
+            
+            // Portal effect
+            const portal = document.querySelector('.portal-effect');
+            portal.style.backgroundColor = color;
+            portal.style.left = centerX + 'px';
+            portal.style.top = centerY + 'px';
+            portal.classList.add('active');
+            
+            setTimeout(() => {
+                portal.classList.remove('active');
+                const pages = {
+                    'home': 'page2.html',
+                    'about': 'about.html',
+                    'stories': 'stories.html',
+                    'milestones': 'milestones.html',
+                    'invitation': 'invitation.html'
+                };
+                console.log('Navigating to:', pages[page]);
+                // window.location.href = pages[page];
+            }, 1200);
+        }
+    </script>
+</body>
+</html>

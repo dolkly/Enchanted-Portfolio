@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magical Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Cinzel', 'Georgia', serif; 
+      background: url('Image/7c42746c-4047-4e79-a58a-893b21340e08.jpg') no-repeat center top; 
+      background-size: cover; 
+      background-attachment: scroll; 
+      background-color: #1a0a0a; 
+      min-height: 300vh; 
+      overflow-x: hidden; 
+      position: relative; 
+    }
+
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1000px;
+      margin: 50px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 18px;
+    }
+
+    /* === Parchment Image Container === */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .parchment-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .parchment-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .parchment-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 52%;
+      color: #5a3825;
+      font-size: clamp(0.7rem, 1.6vw, 1.1rem); /* adjusts text size based on screen width */
+      line-height: 1.5; /* normal paragraph spacing */
+      letter-spacing: 0.3px;
+      text-align: center;
+      padding: 0 2%;
+      word-wrap: break-word;
+    }
+    
+    .parchment-text p {
+      margin-bottom: 0.8em; /* smaller paragraph gap */
+    }
+
+
+    .parchment-text strong {
+      font-weight: 700;
+      color: #3d2817;
+    }
+
+    .typewriter {
+      display: inline;
+    }
+
+    .caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: #5a3825;
+      margin-left: 2px;
+      animation: blink 0.8s infinite;
+      vertical-align: text-bottom;
+    }
+
+    /* Custom Image Button */
+    .button-scroll {
+      margin-top: 100px;
+      text-align: center;
+    }
+
+    .image-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .image-btn img {
+      width: 150%;
+      max-width: 500%;
+      max-width: clamp(350px, 45vw, 480px); /* grows and shrinks with screen */
+      height: auto;
+      transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+    .image-btn:hover img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: #ffd700;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10;
+      animation: sparkleFloat 4s infinite ease-in-out;
+      box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffa500;
+    }
+
+    @keyframes sparkleFloat {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1); 
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      50% { 
+        transform: translate(var(--tx), var(--ty)) scale(1.5); 
+        opacity: 0.8;
+      }
+      90% { opacity: 1; }
+    }
+
+    @media (max-width: 1024px) {
+  .parchment-text {
+    width: 60%;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .parchment-text {
+    width: 65%;
+    font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .parchment-text {
+    width: 75%;
+    font-size: clamp(0.75rem, 3vw, 0.9rem);
+    line-height: 1.4;
+    padding: 0 3%;
+  }
+}
+
+
+    /* Very Small Screens */
+    @media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+
+
+      .image-btn img {
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="parchment-wrapper">
+      <img src="Image/d748aab6-dca7-48d2-bdb5-a76aa094c34a.png" alt="Scroll" class="parchment-img">
+      <div class="parchment-text">
+        <span class="typewriter" id="typewriter"></span><span class="caret" id="caret"></span>
+      </div>
+    </div>
+
+    <div class="button-scroll">
+      <button class="image-btn" onclick="window.location.href='page2.html'">
+        <img src="Image/e6d874c3-4f0c-45f7-b050-a1564f329eab.png" alt="Next Page">
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Typewriter Effect
+    const text = `Welcome to <strong>The Enchanted Codebook</strong>, where creativity is as magical as a wand at Hogwarts. Whether you're a curious muggle or a wizarding soul, this is your Platform 9¾ — a gateway to ideas, projects, and stories that come alive.
+
+Just like Dumbledore once said, "Words are, in my not-so-humble opinion, our most inexhaustible source of magic." Here, we turn words, codes, and designs into spells of imagination and innovation.
+
+So grab your broomstick, put on your cloak, and step into a digital world that's truly enchanting. Every scroll and click will take you deeper into this magical portfolio.`;
+
+    const typewriterElement = document.getElementById('typewriter');
+    const caretElement = document.getElementById('caret');
+    let index = 0;
+    const speed = 40;
+
+    function typeWriter() {
+      if (index < text.length) {
+        const char = text.charAt(index);
+        if (char === '\n') {
+          typewriterElement.innerHTML += '<br><br>';
+        } else if (text.substr(index, 8) === '<strong>') {
+          const endTag = text.indexOf('</strong>', index);
+          if (endTag !== -1) {
+            typewriterElement.innerHTML += text.substring(index, endTag + 9);
+            index = endTag + 8;
+          }
+        } else {
+          typewriterElement.innerHTML += char;
+        }
+        index++;
+        setTimeout(typeWriter, speed);
+      } else {
+        setTimeout(() => {
+          caretElement.style.display = 'none';
+        }, 1000);
+      }
+    }
+
+
+    /* Sparkles */
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      
+      sparkle.style.left = startX + 'px';
+      sparkle.style.top = startY + 'px';
+      sparkle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+      sparkle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      sparkle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      
+      document.body.appendChild(sparkle);
+      
+      setTimeout(() => sparkle.remove(), 5000);
+    }
+
+    setInterval(createSparkle, 200);
+
+    // Start typewriter effect after page load
+    window.onload = () => {
+      setTimeout(typeWriter, 500);
+    };
+  </script>
+</body>
+</html>
