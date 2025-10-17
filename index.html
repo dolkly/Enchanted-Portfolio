@@ -15,13 +15,20 @@
       font-family: 'Cinzel', 'Georgia', serif; 
       background: url('Image/7c42746c-4047-4e79-a58a-893b21340e08.jpg') no-repeat center top; 
       background-size: cover; 
-      background-attachment: scroll; 
+      background-attachment: fixed; 
       background-color: #1a0a0a; 
-      min-height: 300vh; 
+      min-height: 100vh; 
       overflow-x: hidden; 
       position: relative; 
     }
 
+    /* Mobile background fix */
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+        background-position: center top;
+      }
+    }
 
     body::before {
       content: '';
@@ -40,33 +47,20 @@
       z-index: 10;
       width: 100%;
       max-width: 1000px;
-      margin: 50px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 18px;
-    }
-
-    /* === Parchment Image Container === */
-    .container {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      max-width: 1000px;
       margin: 0 auto;
-      padding: 50px 20px;
+      padding: clamp(20px, 5vw, 50px) clamp(15px, 4vw, 20px);
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
     }
 
+    /* Parchment Wrapper */
     .parchment-wrapper {
       position: relative;
       width: 100%;
       max-width: 900px;
-      margin: 20px auto;
+      margin: clamp(15px, 3vw, 20px) auto;
       display: flex;
       justify-content: center;
     }
@@ -75,6 +69,7 @@
       width: 100%;
       height: auto;
       display: block;
+      max-width: 100%;
     }
 
     .parchment-text {
@@ -84,18 +79,18 @@
       transform: translate(-50%, -50%);
       width: 52%;
       color: #5a3825;
-      font-size: clamp(0.7rem, 1.6vw, 1.1rem); /* adjusts text size based on screen width */
-      line-height: 1.5; /* normal paragraph spacing */
+      font-size: clamp(0.7rem, 1.6vw, 1.1rem);
+      line-height: 1.5;
       letter-spacing: 0.3px;
       text-align: center;
       padding: 0 2%;
       word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     
     .parchment-text p {
-      margin-bottom: 0.8em; /* smaller paragraph gap */
+      margin-bottom: 0.8em;
     }
-
 
     .parchment-text strong {
       font-weight: 700;
@@ -116,10 +111,19 @@
       vertical-align: text-bottom;
     }
 
-    /* Custom Image Button */
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Button Section */
     .button-scroll {
-      margin-top: 100px;
+      margin-top: clamp(40px, 8vw, 100px);
       text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .image-btn {
@@ -127,20 +131,24 @@
       border: none;
       cursor: pointer;
       padding: 0;
+      transition: transform 0.3s ease;
     }
 
     .image-btn img {
-      width: 150%;
-      max-width: 500%;
-      max-width: clamp(350px, 45vw, 480px); /* grows and shrinks with screen */
+      width: 100%;
+      max-width: clamp(250px, 45vw, 480px);
       height: auto;
       transition: transform 0.3s ease, filter 0.3s ease;
-}
-
+      display: block;
+    }
 
     .image-btn:hover img {
       transform: scale(1.05);
       filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7));
+    }
+
+    .image-btn:active img {
+      transform: scale(0.98);
     }
 
     /* Sparkles */
@@ -169,40 +177,102 @@
       90% { opacity: 1; }
     }
 
+    /* Tablet Responsiveness */
     @media (max-width: 1024px) {
-  .parchment-text {
-    width: 60%;
-    font-size: clamp(0.85rem, 1.4vw, 1rem);
-  }
-}
-
-@media (max-width: 768px) {
-  .parchment-text {
-    width: 65%;
-    font-size: clamp(0.8rem, 1.3vw, 0.95rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .parchment-text {
-    width: 75%;
-    font-size: clamp(0.75rem, 3vw, 0.9rem);
-    line-height: 1.4;
-    padding: 0 3%;
-  }
-}
-
-
-    /* Very Small Screens */
-    @media (max-width: 768px) {
-  body {
-    background-attachment: scroll;
-    background-position: center top;
-  }
-
+      .parchment-text {
+        width: 58%;
+        font-size: clamp(0.75rem, 1.5vw, 1rem);
+        padding: 0 2.5%;
+      }
 
       .image-btn img {
-        max-width: 200px;
+        max-width: clamp(220px, 40vw, 400px);
+      }
+    }
+
+    /* Mobile Large */
+    @media (max-width: 768px) {
+      .container {
+        padding: clamp(15px, 4vw, 30px) clamp(12px, 3vw, 18px);
+      }
+
+      .parchment-text {
+        width: 64%;
+        font-size: clamp(0.7rem, 2vw, 0.95rem);
+        line-height: 1.45;
+        padding: 0 3%;
+      }
+
+      .button-scroll {
+        margin-top: clamp(30px, 6vw, 70px);
+      }
+
+      .image-btn img {
+        max-width: clamp(200px, 50vw, 350px);
+      }
+
+      .sparkle {
+        width: 3px;
+        height: 3px;
+      }
+    }
+
+    /* Mobile Small */
+    @media (max-width: 480px) {
+      .parchment-wrapper {
+        margin: clamp(10px, 2vw, 15px) auto;
+      }
+
+      .parchment-text {
+        width: 70%;
+        font-size: clamp(0.65rem, 3.2vw, 0.88rem);
+        line-height: 1.4;
+        padding: 0 3.5%;
+        letter-spacing: 0.2px;
+      }
+
+      .parchment-text p {
+        margin-bottom: 0.7em;
+      }
+
+      .button-scroll {
+        margin-top: clamp(25px, 5vw, 50px);
+      }
+
+      .image-btn img {
+        max-width: clamp(180px, 60vw, 280px);
+      }
+    }
+
+    /* Extra Small Devices */
+    @media (max-width: 360px) {
+      .parchment-text {
+        width: 75%;
+        font-size: clamp(0.6rem, 3.5vw, 0.8rem);
+        line-height: 1.35;
+      }
+
+      .image-btn img {
+        max-width: clamp(160px, 65vw, 240px);
+      }
+    }
+
+    /* Landscape Mode for Mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .container {
+        padding: 15px 20px;
+      }
+
+      .parchment-wrapper {
+        margin: 10px auto;
+      }
+
+      .button-scroll {
+        margin-top: 30px;
+      }
+
+      .parchment-text {
+        font-size: clamp(0.65rem, 1.8vw, 0.85rem);
       }
     }
   </style>
@@ -217,7 +287,7 @@
     </div>
 
     <div class="button-scroll">
-      <button class="image-btn" onclick="window.location.href='page2.html'">
+      <button class="image-btn" onclick="window.location.href='page2.html'" aria-label="Navigate to next page">
         <img src="Image/e6d874c3-4f0c-45f7-b050-a1564f329eab.png" alt="Next Page">
       </button>
     </div>
@@ -234,7 +304,10 @@ So grab your broomstick, put on your cloak, and step into a digital world that's
     const typewriterElement = document.getElementById('typewriter');
     const caretElement = document.getElementById('caret');
     let index = 0;
-    const speed = 40;
+    
+    // Responsive typing speed - faster on mobile
+    const isMobile = window.innerWidth <= 768;
+    const speed = isMobile ? 30 : 40;
 
     function typeWriter() {
       if (index < text.length) {
@@ -259,8 +332,7 @@ So grab your broomstick, put on your cloak, and step into a digital world that's
       }
     }
 
-
-    /* Sparkles */
+    // Sparkles - Reduced frequency on mobile for performance
     function createSparkle() {
       const sparkle = document.createElement('div');
       sparkle.className = 'sparkle';
@@ -280,12 +352,21 @@ So grab your broomstick, put on your cloak, and step into a digital world that's
       setTimeout(() => sparkle.remove(), 5000);
     }
 
-    setInterval(createSparkle, 200);
+    // Adjust sparkle frequency based on device
+    const sparkleInterval = isMobile ? 400 : 200;
+    setInterval(createSparkle, sparkleInterval);
 
     // Start typewriter effect after page load
     window.onload = () => {
       setTimeout(typeWriter, 500);
     };
+
+    // Handle orientation changes
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 100);
+    });
   </script>
 </body>
 </html>
