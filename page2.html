@@ -263,7 +263,8 @@
             left: 50%;
             transform: translateX(-50%);
             color: #fff;
-            font-size: max(9px, 1.6vmin);
+            font-size: 1.6vmin;
+            min-font-size: 9px;
             text-shadow: 0 0 1vmin rgba(0,0,0,0.9), 0 0 2vmin currentColor;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -821,24 +822,22 @@
             });
 
             crest.addEventListener('touchstart', function(e) {
-                e.preventDefault();
                 if (this.id !== 'hogwarts-crest') {
                     const conn = connections.find(c => c.toId === this.id);
                     if (conn) conn.hovered = true;
                 }
-            }, { passive: false });
+            });
 
             crest.addEventListener('touchend', function(e) {
-                e.preventDefault();
                 if (this.id !== 'hogwarts-crest') {
                     const conn = connections.find(c => c.toId === this.id);
                     if (conn) {
                         setTimeout(() => {
                             conn.hovered = false;
-                        }, 300);
+                        }, 200);
                     }
                 }
-            }, { passive: false });
+            });
         });
 
         const cursor = document.querySelector('.custom-cursor');
