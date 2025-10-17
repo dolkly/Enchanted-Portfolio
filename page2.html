@@ -2,22 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hogwarts Magical Navigation</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
         }
 
         body {
             font-family: 'Cinzel', 'Georgia', serif;
-            overflow: hidden;
             cursor: none;
             background: #0a0a0a;
-            width: 100vw;
-            height: 100vh;
         }
 
         .background {
@@ -86,14 +91,18 @@
         #hogwarts-wrapper { grid-column: 2; grid-row: 2; z-index: 10; }
 
         .crest {
-            width: clamp(130px, 20vmin, 220px); /* was 100px–180px */
-            height: clamp(130px, 20vmin, 220px);
+            width: 22vmin;
+            height: 22vmin;
+            min-width: 60px;
+            min-height: 60px;
+            max-width: 280px;
+            max-height: 280px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             cursor: pointer;
             transition: all 0.4s ease;
-            filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+            filter: drop-shadow(0 0 2vmin rgba(255,255,255,0.3));
             position: relative;
         }
 
@@ -112,7 +121,7 @@
 
         .crest:hover::before {
             opacity: 0.6;
-            box-shadow: 0 0 40px currentColor;
+            box-shadow: 0 0 4vmin currentColor;
             animation: pulse 1.5s ease-in-out infinite;
         }
 
@@ -123,20 +132,28 @@
 
         .crest:hover {
             transform: scale(1.15);
-            filter: drop-shadow(0 0 40px currentColor);
+            filter: drop-shadow(0 0 4vmin currentColor);
+        }
+
+        .crest:active {
+            transform: scale(1.05);
         }
 
         #hogwarts-crest {
             background-image: url('p2image/bb5e386e-7887-433b-8f1c-c5b02507ffcb-removebg-preview.png');
-            width: clamp(150px, 24vmin, 260px); /* slightly larger center crest */
-            height: clamp(150px, 24vmin, 260px);
-            filter: drop-shadow(0 0 30px rgba(255,215,0,0.6));
+            width: 26vmin;
+            height: 26vmin;
+            min-width: 80px;
+            min-height: 80px;
+            max-width: 340px;
+            max-height: 340px;
+            filter: drop-shadow(0 0 3vmin rgba(255,215,0,0.6));
             animation: centralGlow 3s ease-in-out infinite;
         }
 
         @keyframes centralGlow {
-            0%, 100% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.6)); }
-            50% { filter: drop-shadow(0 0 50px rgba(255,215,0,0.9)); }
+            0%, 100% { filter: drop-shadow(0 0 3vmin rgba(255,215,0,0.6)); }
+            50% { filter: drop-shadow(0 0 5vmin rgba(255,215,0,0.9)); }
         }
 
         #hogwarts-crest::after {
@@ -169,25 +186,34 @@
             width: 100vw;
             height: 100vh;
             pointer-events: none;
-            z-index: 5;
+            z-index: 0;
         }
 
         .custom-cursor {
             position: fixed;
-            width: 20px;
-            height: 20px;
+            width: 1.5vmin;
+            height: 1.5vmin;
+            min-width: 15px;
+            min-height: 15px;
+            max-width: 25px;
+            max-height: 25px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(147,112,219,0.8), transparent);
             pointer-events: none;
             z-index: 9999;
             mix-blend-mode: screen;
-            box-shadow: 0 0 20px rgba(147,112,219,0.6);
+            box-shadow: 0 0 2vmin rgba(147,112,219,0.6);
+            display: none;
         }
 
         .cursor-trail {
             position: fixed;
-            width: 8px;
-            height: 8px;
+            width: 0.8vmin;
+            height: 0.8vmin;
+            min-width: 6px;
+            min-height: 6px;
+            max-width: 12px;
+            max-height: 12px;
             border-radius: 50%;
             background: radial-gradient(circle, rgba(147,112,219,0.6), transparent);
             pointer-events: none;
@@ -219,31 +245,31 @@
         @keyframes portalBurst {
             0% {
                 width: 0; height: 0; opacity: 1;
-                box-shadow: 0 0 0 0 currentColor, inset 0 0 50px currentColor;
+                box-shadow: 0 0 0 0 currentColor, inset 0 0 5vmin currentColor;
             }
             40% {
-                width: 400px; height: 400px; opacity: 0.9;
-                box-shadow: 0 0 100px 50px currentColor, inset 0 0 100px currentColor;
+                width: 40vmin; height: 40vmin; opacity: 0.9;
+                box-shadow: 0 0 10vmin 5vmin currentColor, inset 0 0 10vmin currentColor;
             }
             100% {
-                width: 3000px; height: 3000px; opacity: 0;
-                box-shadow: 0 0 200px 100px currentColor, inset 0 0 200px currentColor;
+                width: 300vmin; height: 300vmin; opacity: 0;
+                box-shadow: 0 0 20vmin 10vmin currentColor, inset 0 0 20vmin currentColor;
             }
         }
 
         .label {
             position: absolute;
-            bottom: -35px;
+            bottom: -4vmin;
             left: 50%;
             transform: translateX(-50%);
             color: #fff;
-            font-size: clamp(11px, 1.2vmin, 16px);
-            text-shadow: 0 0 10px rgba(0,0,0,0.9), 0 0 20px currentColor;
+            font-size: max(9px, 1.6vmin);
+            text-shadow: 0 0 1vmin rgba(0,0,0,0.9), 0 0 2vmin currentColor;
             opacity: 0;
             transition: opacity 0.3s ease;
             white-space: nowrap;
             pointer-events: none;
-            letter-spacing: 1px;
+            letter-spacing: 0.15vmin;
             font-weight: 600;
         }
 
@@ -251,56 +277,342 @@
             opacity: 1;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 3vh 5vw;
-                gap: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 2vh 5vw;
-            }
-            
-            .label {
-                font-size: 10px;
-                bottom: -25px;
-            }
-        }
-
-        /* Floating Candles */
         .candle {
             position: fixed;
-            width: 12px;
-            height: 30px;
+            width: 1.2vmin;
+            height: 3vmin;
+            min-width: 8px;
+            min-height: 20px;
+            max-width: 15px;
+            max-height: 35px;
             background: linear-gradient(to top, #ffecb3 40%, #fff8e1 80%);
             border-radius: 4px;
-            box-shadow: 0 0 15px 5px rgba(255, 230, 150, 0.6);
+            box-shadow: 0 0 1.5vmin 0.5vmin rgba(255, 230, 150, 0.6);
             animation: floatCandle 10s ease-in-out infinite;
             opacity: 0.8;
             z-index: 2;
-    }
-    
-    .candle::after {
-        content: '';
-        position: absolute;
-        top: -8px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 5px;
-        height: 10px;
-        background: radial-gradient(circle, #ffcc80 30%, transparent 70%);
-        border-radius: 50%;
-        box-shadow: 0 0 8px 3px rgba(255, 200, 120, 0.8);
-    }
-    
-    @keyframes floatCandle {
-        0% { transform: translateY(0) translateX(0); }
-        50% { transform: translateY(-20px) translateX(10px); }
-        100% { transform: translateY(0) translateX(0); }
-    }
+        }
+        
+        .candle::after {
+            content: '';
+            position: absolute;
+            top: -0.8vmin;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.5vmin;
+            height: 1vmin;
+            min-width: 4px;
+            min-height: 8px;
+            max-width: 6px;
+            max-height: 12px;
+            background: radial-gradient(circle, #ffcc80 30%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 0.8vmin 0.3vmin rgba(255, 200, 120, 0.8);
+        }
+        
+        @keyframes floatCandle {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-2vmin) translateX(1vmin); }
+            100% { transform: translateY(0) translateX(0); }
+        }
 
+        /* 4K and Large Monitors (2560px+) */
+        @media (min-width: 2560px) {
+            .crest {
+                width: 20vmin;
+                height: 20vmin;
+                max-width: 320px;
+                max-height: 320px;
+            }
+
+            #hogwarts-crest {
+                width: 24vmin;
+                height: 24vmin;
+                max-width: 400px;
+                max-height: 400px;
+            }
+
+            .label {
+                font-size: 1.4vmin;
+            }
+        }
+
+        /* Large Desktop (1920px - 2559px) */
+        @media (min-width: 1920px) and (max-width: 2559px) {
+            .crest {
+                width: 21vmin;
+                height: 21vmin;
+            }
+
+            #hogwarts-crest {
+                width: 25vmin;
+                height: 25vmin;
+            }
+        }
+
+        /* Standard Desktop (1440px - 1919px) */
+        @media (min-width: 1440px) and (max-width: 1919px) {
+            .crest {
+                width: 20vmin;
+                height: 20vmin;
+            }
+
+            #hogwarts-crest {
+                width: 24vmin;
+                height: 24vmin;
+            }
+        }
+
+        /* Medium Desktop (1200px - 1439px) */
+        @media (min-width: 1200px) and (max-width: 1439px) {
+            .crest {
+                width: 19vmin;
+                height: 19vmin;
+            }
+
+            #hogwarts-crest {
+                width: 23vmin;
+                height: 23vmin;
+            }
+        }
+
+        /* Small Desktop / Large Tablet (1024px - 1199px) */
+        @media (min-width: 1024px) and (max-width: 1199px) {
+            .container {
+                padding: 4vh 4vw;
+            }
+
+            .crest {
+                width: 18vmin;
+                height: 18vmin;
+            }
+
+            #hogwarts-crest {
+                width: 22vmin;
+                height: 22vmin;
+            }
+
+            .label {
+                font-size: 1.5vmin;
+            }
+        }
+
+        /* Tablet Portrait & Landscape (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+
+            .container {
+                padding: 3vh 3vw;
+            }
+
+            .crest {
+                width: 16vmin;
+                height: 16vmin;
+                min-width: 70px;
+                min-height: 70px;
+            }
+
+            #hogwarts-crest {
+                width: 20vmin;
+                height: 20vmin;
+                min-width: 90px;
+                min-height: 90px;
+            }
+
+            .label {
+                font-size: 1.4vmin;
+                bottom: -3.5vmin;
+            }
+
+            .crest:active .label {
+                opacity: 1;
+            }
+        }
+
+        /* Large Mobile Landscape / Small Tablet (600px - 767px) */
+        @media (min-width: 600px) and (max-width: 767px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+
+            .container {
+                padding: 2.5vh 2.5vw;
+            }
+
+            .crest {
+                width: 15vmin;
+                height: 15vmin;
+                min-width: 65px;
+                min-height: 65px;
+            }
+
+            #hogwarts-crest {
+                width: 19vmin;
+                height: 19vmin;
+                min-width: 85px;
+                min-height: 85px;
+            }
+
+            .label {
+                font-size: 1.3vmin;
+                bottom: -3vmin;
+            }
+
+            .crest:active .label {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Landscape (480px - 599px) */
+        @media (min-width: 480px) and (max-width: 599px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+
+            .container {
+                padding: 2vh 2vw;
+            }
+
+            .crest {
+                width: 14vmin;
+                height: 14vmin;
+                min-width: 55px;
+                min-height: 55px;
+            }
+
+            #hogwarts-crest {
+                width: 18vmin;
+                height: 18vmin;
+                min-width: 75px;
+                min-height: 75px;
+            }
+
+            .label {
+                font-size: 2vw;
+                bottom: -2.5vmin;
+            }
+        }
+
+        /* Mobile Portrait (375px - 479px) */
+        @media (min-width: 375px) and (max-width: 479px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+
+            .container {
+                padding: 1.5vh 1.5vw;
+            }
+
+            .crest {
+                width: 13vmin;
+                height: 13vmin;
+                min-width: 50px;
+                min-height: 50px;
+            }
+
+            #hogwarts-crest {
+                width: 17vmin;
+                height: 17vmin;
+                min-width: 70px;
+                min-height: 70px;
+            }
+
+            .label {
+                font-size: 2.2vw;
+                bottom: -2vmin;
+                letter-spacing: 0.1vmin;
+            }
+        }
+
+        /* Small Mobile (320px - 374px) */
+        @media (max-width: 374px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+
+            .container {
+                padding: 1vh 1vw;
+            }
+
+            .crest {
+                width: 12vmin;
+                height: 12vmin;
+                min-width: 45px;
+                min-height: 45px;
+            }
+
+            #hogwarts-crest {
+                width: 16vmin;
+                height: 16vmin;
+                min-width: 65px;
+                min-height: 65px;
+            }
+
+            .label {
+                font-size: 2.5vw;
+                bottom: -1.8vmin;
+                letter-spacing: 0.05vmin;
+            }
+        }
+
+        /* Desktop hover effects only */
+        @media (hover: hover) and (pointer: fine) {
+            .custom-cursor {
+                display: block;
+            }
+
+            body {
+                cursor: none;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .crest:hover {
+                transform: none;
+            }
+
+            .crest:active {
+                transform: scale(1.1);
+            }
+
+            .crest::before {
+                display: none;
+            }
+        }
+
+        /* Landscape orientation adjustments */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .container {
+                padding: 2vh 4vw;
+            }
+
+            .label {
+                bottom: -2.5vmin;
+            }
+        }
     </style>
 </head>
 <body>
@@ -311,50 +623,53 @@
     
     <div class="container">
         <div class="crest-wrapper" id="gryffindor-wrapper">
-            <div class="crest" id="gryffindor" onclick="window.location.href='page3.html'">
+            <div class="crest" id="gryffindor" onclick="navigate('page3.html', this)">
                 <div class="label">ABOUT ME</div>
             </div>
         </div>
 
         <div class="crest-wrapper" id="hufflepuff-wrapper">
-            <div class="crest" id="hufflepuff" onclick="window.location.href='page5.html'">
+            <div class="crest" id="hufflepuff" onclick="navigate('page5.html', this)">
                 <div class="label">MASTERPIECES</div>
             </div>
         </div>
 
         <div class="crest-wrapper" id="hogwarts-wrapper">
-            <div class="crest" id="hogwarts-crest" onclick="window.location.href='index.html'">
-                <div class="label">BACK HOME</div>
+            <div class="crest" id="hogwarts-crest" onclick="navigate('index.html', this)">
+                <div class="label">BACK TO LETTER</div>
             </div>
         </div>
 
         <div class="crest-wrapper" id="slytherin-wrapper">
-            <div class="crest" id="slytherin" onclick="window.location.href='page4.html'">
+            <div class="crest" id="slytherin" onclick="navigate('page4.html', this)">
                 <div class="label">HISTORICAL STORIES</div>
             </div>
         </div>
 
         <div class="crest-wrapper" id="ravenclaw-wrapper">
-            <div class="crest" id="ravenclaw" onclick="window.location.href='page6.html'">
+            <div class="crest" id="ravenclaw" onclick="navigate('page6.html', this)">
                 <div class="label">INVITATION</div>
             </div>
         </div>
     </div>
 
     <script>
-        // Canvas setup for electric connections
         const canvas = document.getElementById('electricCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(dpr, dpr);
+        }
+        resizeCanvas();
 
-        // Make sure the canvas is BEHIND the crests
-        canvas.style.zIndex = "0"; // lower than crests
-        document.querySelector('.container').style.zIndex = "1"; // crests above canvas;
-
-        // Get crest positions
         function getCrestCenter(id) {
             const el = document.getElementById(id);
+            if (!el) return { x: 0, y: 0 };
             const rect = el.getBoundingClientRect();
             return {
                 x: rect.left + rect.width / 2,
@@ -362,7 +677,6 @@
             };
         }
 
-        // Electric connection class
         class ElectricConnection {
             constructor(fromId, toId, color) {
                 this.fromId = fromId;
@@ -378,24 +692,29 @@
                 const from = getCrestCenter(this.fromId);
                 const to = getCrestCenter(this.toId);
                 
-                // Main lightning path
+                if (from.x === 0 || to.x === 0) return;
+
+                const lineWidth = Math.max(2, window.innerWidth / 800);
+                const glowIntensity = Math.max(15, window.innerWidth / 100);
+
                 ctx.save();
                 ctx.strokeStyle = this.color;
-                ctx.lineWidth = this.hovered ? 3 : 2;
+                ctx.lineWidth = this.hovered ? lineWidth * 1.5 : lineWidth;
                 ctx.globalAlpha = 0.6 + Math.sin(time * 0.003 + this.offset) * 0.2;
-                ctx.shadowBlur = this.hovered ? 25 : 15;
+                ctx.shadowBlur = this.hovered ? glowIntensity * 1.5 : glowIntensity;
                 ctx.shadowColor = this.color;
 
-                // Draw lightning bolt path
                 ctx.beginPath();
                 ctx.moveTo(from.x, from.y);
                 
                 const segments = 8;
+                const waveAmplitude = Math.max(5, window.innerWidth / 150);
+                
                 for (let i = 1; i <= segments; i++) {
                     const t = i / segments;
                     const x = from.x + (to.x - from.x) * t;
                     const y = from.y + (to.y - from.y) * t;
-                    const offset = Math.sin(time * 0.005 + t * 5 + this.offset) * (this.hovered ? 15 : 8);
+                    const offset = Math.sin(time * 0.005 + t * 5 + this.offset) * (this.hovered ? waveAmplitude * 1.5 : waveAmplitude);
                     
                     if (Math.abs(to.x - from.x) > Math.abs(to.y - from.y)) {
                         ctx.lineTo(x, y + offset);
@@ -406,10 +725,9 @@
                 
                 ctx.stroke();
 
-                // Glow layer
                 ctx.globalAlpha = 0.3;
-                ctx.lineWidth = this.hovered ? 8 : 5;
-                ctx.shadowBlur = 30;
+                ctx.lineWidth = this.hovered ? lineWidth * 3 : lineWidth * 2;
+                ctx.shadowBlur = glowIntensity * 2;
                 ctx.beginPath();
                 ctx.moveTo(from.x, from.y);
                 ctx.lineTo(to.x, to.y);
@@ -417,21 +735,20 @@
 
                 ctx.restore();
 
-                // Draw particles
                 this.updateParticles(from, to, time);
             }
 
             updateParticles(from, to, time) {
-                // Create new particles
+                const particleSize = Math.max(2, window.innerWidth / 400);
+                
                 if (Math.random() < (this.hovered ? 0.15 : 0.05)) {
                     this.particles.push({
                         progress: 0,
                         speed: 0.005 + Math.random() * 0.01,
-                        size: 3 + Math.random() * 4
+                        size: particleSize + Math.random() * particleSize
                     });
                 }
 
-                // Update and draw particles
                 this.particles = this.particles.filter(p => {
                     p.progress += p.speed;
                     
@@ -442,7 +759,7 @@
 
                     ctx.save();
                     ctx.fillStyle = this.color;
-                    ctx.shadowBlur = 15;
+                    ctx.shadowBlur = Math.max(10, window.innerWidth / 120);
                     ctx.shadowColor = this.color;
                     ctx.globalAlpha = 1 - p.progress;
                     ctx.beginPath();
@@ -455,7 +772,6 @@
             }
         }
 
-        // Create connections
         const connections = [
             new ElectricConnection('hogwarts-crest', 'gryffindor', '#ff4444'),
             new ElectricConnection('hogwarts-crest', 'slytherin', '#2ecc71'),
@@ -463,31 +779,33 @@
             new ElectricConnection('hogwarts-crest', 'hufflepuff', '#f1c40f')
         ];
 
-        // Animation loop
+        let animationId;
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const time = Date.now();
             
             connections.forEach(conn => conn.draw(time));
             
-            requestAnimationFrame(animate);
+            animationId = requestAnimationFrame(animate);
         }
         
         animate();
-        // 🪄 Make canvas and connections responsive
+
         let resizeTimeout;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                animate(); // re-render after resize
-                }, 200);
-            });
+                resizeCanvas();
+            }, 100);
+        });
 
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+                resizeCanvas();
+            }, 200);
+        });
 
-        // Hover effects
-        document.querySelectorAll('.crest').forEach((crest, idx) => {
+        document.querySelectorAll('.crest').forEach((crest) => {
             crest.addEventListener('mouseenter', function() {
                 if (this.id !== 'hogwarts-crest') {
                     const conn = connections.find(c => c.toId === this.id);
@@ -501,9 +819,28 @@
                     if (conn) conn.hovered = false;
                 }
             });
+
+            crest.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                if (this.id !== 'hogwarts-crest') {
+                    const conn = connections.find(c => c.toId === this.id);
+                    if (conn) conn.hovered = true;
+                }
+            }, { passive: false });
+
+            crest.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                if (this.id !== 'hogwarts-crest') {
+                    const conn = connections.find(c => c.toId === this.id);
+                    if (conn) {
+                        setTimeout(() => {
+                            conn.hovered = false;
+                        }, 300);
+                    }
+                }
+            }, { passive: false });
         });
 
-        // Custom cursor
         const cursor = document.querySelector('.custom-cursor');
         let mouseX = 0, mouseY = 0;
         let cursorX = 0, cursorY = 0;
@@ -512,7 +849,7 @@
             mouseX = e.clientX;
             mouseY = e.clientY;
             
-            if (Math.random() > 0.8) {
+            if (window.innerWidth > 768 && Math.random() > 0.85) {
                 const trail = document.createElement('div');
                 trail.className = 'cursor-trail';
                 trail.style.left = e.clientX + 'px';
@@ -531,9 +868,11 @@
         }
         animateCursor();
 
-        // Create floating embers
         const bg = document.getElementById('bg');
-        for (let i = 0; i < 30; i++) {
+        const screenWidth = window.innerWidth;
+        const emberCount = screenWidth > 1920 ? 40 : screenWidth > 1024 ? 30 : screenWidth > 768 ? 20 : 10;
+        
+        for (let i = 0; i < emberCount; i++) {
             const ember = document.createElement('div');
             ember.className = 'ember';
             ember.style.left = Math.random() * 100 + '%';
@@ -542,8 +881,9 @@
             bg.appendChild(ember);
         }
 
-        // Create floating candles
-        for (let i = 0; i < 20; i++) {
+        const candleCount = screenWidth > 1920 ? 25 : screenWidth > 1024 ? 20 : screenWidth > 768 ? 15 : 8;
+        
+        for (let i = 0; i < candleCount; i++) {
             const candle = document.createElement('div');
             candle.className = 'candle';
             candle.style.left = Math.random() * 100 + '%';
@@ -553,8 +893,6 @@
             document.body.appendChild(candle);
         }
 
-
-        // Navigation with lightning surge
         function navigate(page, element) {
             const rect = element.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
@@ -562,24 +900,22 @@
             
             const color = window.getComputedStyle(element).color;
             
-            // Lightning surge effect
             const conn = connections.find(c => c.toId === element.id);
             if (conn) {
                 conn.intensity = 2;
                 
-                // Create intense flash
-                for (let i = 0; i < 50; i++) {
+                const burstCount = Math.min(50, Math.floor(window.innerWidth / 30));
+                for (let i = 0; i < burstCount; i++) {
                     setTimeout(() => {
                         conn.particles.push({
                             progress: 0,
                             speed: 0.02,
-                            size: 5 + Math.random() * 5
+                            size: Math.max(3, window.innerWidth / 300) + Math.random() * Math.max(3, window.innerWidth / 300)
                         });
                     }, i * 10);
                 }
             }
             
-            // Portal effect
             const portal = document.querySelector('.portal-effect');
             portal.style.backgroundColor = color;
             portal.style.left = centerX + 'px';
@@ -587,17 +923,16 @@
             portal.classList.add('active');
             
             setTimeout(() => {
-                portal.classList.remove('active');
-                const pages = {
-                    'home': 'page2.html',
-                    'about': 'about.html',
-                    'stories': 'stories.html',
-                    'milestones': 'milestones.html',
-                    'invitation': 'invitation.html'
-                };
-                console.log('Navigating to:', pages[page]);
-                // window.location.href = pages[page];
+                window.location.href = page;
             }, 1200);
+        }
+
+        window.addEventListener('beforeunload', () => {
+            cancelAnimationFrame(animationId);
+        });
+
+        if ('ontouchstart' in window) {
+            document.body.style.cursor = 'auto';
         }
     </script>
 </body>
