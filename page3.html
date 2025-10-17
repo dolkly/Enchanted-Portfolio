@@ -171,6 +171,7 @@
             color: #5c4d3a;
             font-style: italic;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            object-fit: cover;
         }
 
         .main-heading {
@@ -303,6 +304,17 @@
             font-size: 0.85em;
             color: #2c2416;
             line-height: 1.5;
+            padding: 15px;
+            border: 2px solid #8b7355;
+            background: rgba(212,196,160,0.3);
+            margin-top: 15px;
+        }
+
+        .spellbook {
+            text-align: center;
+            font-size: 0.80em;
+            line-height: 1.5;
+            color: #2c2416;
             padding: 15px;
             border: 2px solid #8b7355;
             background: rgba(212,196,160,0.3);
@@ -626,6 +638,7 @@
             pointer-events: none;
         }
 
+        /* Tablet Responsive */
         @media (max-width: 1024px) {
             .container {
                 grid-template-columns: 1fr;
@@ -637,33 +650,247 @@
             .wanted-section {
                 transform: rotate(0);
             }
-        }
 
-        @media (max-width: 768px) {
             .hogwarts-crest {
-                width: 70px;
-                height: 70px;
+                width: 80px;
+                height: 80px;
                 top: 20px;
                 left: 20px;
             }
 
             .gryffindor-crest {
-                width: 80px;
-                height: 80px;
+                width: 90px;
+                height: 90px;
                 bottom: 20px;
                 right: 20px;
             }
 
             .newspaper-title {
-                font-size: 1.8em;
+                font-size: 2em;
+                letter-spacing: 2px;
             }
 
             .main-heading {
-                font-size: 1.6em;
+                font-size: 1.8em;
+            }
+
+            .wanted-title {
+                font-size: 1.7em;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 90px 20px 60px;
+                gap: 30px;
+            }
+
+            .hogwarts-crest {
+                width: 60px;
+                height: 60px;
+                top: 15px;
+                left: 15px;
+            }
+
+            .gryffindor-crest {
+                width: 70px;
+                height: 70px;
+                bottom: 15px;
+                right: 15px;
+            }
+
+            .newspaper-section,
+            .wanted-section {
+                padding: 25px 20px;
+            }
+
+            .newspaper-title {
+                font-size: 1.5em;
+                letter-spacing: 1px;
+            }
+
+            .newspaper-subtitle {
+                font-size: 0.8em;
+            }
+
+            .main-heading {
+                font-size: 1.5em;
+                letter-spacing: 1px;
+            }
+
+            .subtitle {
+                font-size: 1em;
             }
 
             .quote {
+                font-size: 1em;
+                padding: 15px;
+            }
+
+            .quote::before,
+            .quote::after {
+                font-size: 1.5em;
+            }
+
+            .wanted-title {
+                font-size: 1.4em;
+                letter-spacing: 1px;
+            }
+
+            .wanted-text,
+            .spellbook {
+                font-size: 0.75em;
+                padding: 12px;
+            }
+
+            .image-placeholder {
+                height: 250px;
+            }
+
+            .spell-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .lumos-effect {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Small Mobile Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 80px 15px 50px;
+                gap: 25px;
+            }
+
+            .hogwarts-crest {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+            }
+
+            .gryffindor-crest {
+                width: 60px;
+                height: 60px;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .newspaper-section,
+            .wanted-section {
+                padding: 20px 15px;
+            }
+
+            .newspaper-title {
+                font-size: 1.3em;
+                letter-spacing: 0.5px;
+            }
+
+            .newspaper-subtitle {
+                font-size: 0.75em;
+            }
+
+            .main-heading {
+                font-size: 1.3em;
+                letter-spacing: 0.5px;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+            }
+
+            .quote {
+                font-size: 0.9em;
+                padding: 12px;
+            }
+
+            .wanted-title {
+                font-size: 1.2em;
+                letter-spacing: 0.5px;
+            }
+
+            .wanted-text,
+            .spellbook {
+                font-size: 0.7em;
+                padding: 10px;
+                line-height: 1.4;
+            }
+
+            .image-placeholder {
+                height: 200px;
+            }
+
+            .spell-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .photo-frame {
+                border-width: 5px;
+            }
+
+            .golden-snitch,
+            .phoenix-feather,
+            .floating-letter {
+                display: none;
+            }
+        }
+
+        /* Extra Small Devices */
+        @media (max-width: 360px) {
+            .newspaper-title {
                 font-size: 1.1em;
+            }
+
+            .main-heading {
+                font-size: 1.1em;
+            }
+
+            .wanted-title {
+                font-size: 1em;
+            }
+
+            .quote {
+                font-size: 0.85em;
+            }
+
+            .wanted-text,
+            .spellbook {
+                font-size: 0.65em;
+            }
+
+            .image-placeholder {
+                height: 180px;
+            }
+
+            .spell-circle {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 60px 15px 40px;
+            }
+
+            .hogwarts-crest,
+            .gryffindor-crest {
+                width: 50px;
+                height: 50px;
+            }
+
+            .image-placeholder {
+                height: 150px;
+            }
+
+            .photo-frame {
+                aspect-ratio: 4/3;
             }
         }
     </style>
@@ -689,7 +916,6 @@
 
             <div class="image-placeholder">
                 <img src="p3image/156184a5-6cbb-4ea3-b41d-904bb9e9a3cf.jpg" class="image-placeholder">
-
             </div>
 
             <h1 class="main-heading">HI, I'M KENNETH JANE</h1>
@@ -717,28 +943,28 @@
             </div>
 
             <div class="wanted-text">
-    <strong>APPROACH WITH EXTREME CAUTION</strong><br>
-    <em>LAST SEEN IN RUTHERFORD LIBRARY</em><br>
-    WANTED FOR WRITING MAGIC<br><br>
-    Any information leading to the hire of this<br>
-    individual shall be duly rewarded.<br>
-    Notify immediately by owl the Ministry of Magic.
-</div>
+                <strong>APPROACH WITH EXTREME CAUTION</strong><br>
+                <em>LAST SEEN IN RUTHERFORD LIBRARY</em><br>
+                WANTED FOR WRITING MAGIC<br><br>
+                Any information leading to the hire of this<br>
+                individual shall be duly rewarded.<br>
+                Notify immediately by owl the Ministry of Magic.
+            </div>
 
-<div class="spellbook" style="font-size: 0.80em; line-height: 1;">
-    <strong>🪄 The Spellbook of Skills</strong><br>
-    Every wizard has their wand — and every developer has their code.<br>
-    Below lies the enchanted spellbook that holds the languages and powers I’ve learned through time and dedication:<br><br>
+            <div class="spellbook">
+                <strong>🪄 The Spellbook of Skills</strong><br>
+                Every wizard has their wand — and every developer has their code.<br>
+                Below lies the enchanted spellbook that holds the languages and powers I've learned through time and dedication:<br><br>
 
-    <strong>🧩 Programming Languages</strong><br>
-    • 🪶 Java — 🔮 JavaScript — ⚔️ C++ — ✨ Kotlin — 🧙 Python —⚡ HTML & CSS <br>
+                <strong>🧩 Programming Languages</strong><br>
+                🪶 Java — 🔮 JavaScript — ⚔️ C++ — ✨ Kotlin — 🧙 Python —⚡ HTML & CSS <br>
 
-    <strong>⚙️ Frameworks & Tools</strong><br>
-    • 🧭 Android Studio — 🧰 Visual Studio Code — 🌐 Git & GitHub — 🏗️ MySQL & XAMPP<br>
+                <strong>⚙️ Frameworks & Tools</strong><br>
+                🧭 Android Studio — 🧰 Visual Studio Code — 🌐 Git & GitHub — 🏗️ MySQL & XAMPP<br>
 
-    <strong>🌠 Soft Skills (The Inner Magic)</strong><br>
-    • 🧠 Problem Solving — 🕯️ Leadership — 💬 Communication — 🔥 Passion & Curiosity <br>
-</div>
+                <strong>🌠 Soft Skills (The Inner Magic)</strong><br>
+                🧠 Problem Solving — 🕯️ Leadership — 💬 Communication — 🔥 Passion & Curiosity <br>
+            </div>
 
         </div>
     </div>
