@@ -971,7 +971,7 @@
 <body>
     <!-- Background Music -->
     <audio id="bgMusic" loop>
-        <source src="music/Island_of_Spells_🌟🌊_–_Magical_music_by_Dmitriy_Sevostyanov_@dspromusic(128k).mp3" type="audio/mpeg">
+        <source src="music/bba886ad51d319b2b3411acf45cebbbe_2.mp3" type="audio/mpeg">
         <!-- Replace 'your-background-music.mp3' with your actual music file path -->
     </audio>
 
@@ -1167,30 +1167,53 @@
         const musicControl = document.getElementById('musicControl');
         let isPlaying = false;
         
+        // Try to autoplay on page load
+        window.addEventListener('load', function() {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicControl.classList.remove('paused');
+            }).catch(error => {
+                // If autoplay is blocked, try on first user interaction
+                console.log('Autoplay blocked, waiting for user interaction');
+                isPlaying = false;
+                musicControl.classList.add('paused');
+            });
+        });
+        
+        // Fallback: Start music on any user interaction if autoplay failed
+        function startMusicOnInteraction() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicControl.classList.remove('paused');
+                }).catch(e => {
+                    console.log('Music play failed:', e);
+                });
+            }
+            // Remove listeners after first successful play
+            document.removeEventListener('click', startMusicOnInteraction);
+            document.removeEventListener('touchstart', startMusicOnInteraction);
+            document.removeEventListener('keydown', startMusicOnInteraction);
+        }
+        
+        document.addEventListener('click', startMusicOnInteraction);
+        document.addEventListener('touchstart', startMusicOnInteraction);
+        document.addEventListener('keydown', startMusicOnInteraction);
+        
         function toggleMusic() {
             if (isPlaying) {
                 bgMusic.pause();
                 musicControl.classList.add('paused');
                 isPlaying = false;
             } else {
-                bgMusic.play();
-                musicControl.classList.remove('paused');
-                isPlaying = true;
-            }
-        }
-        
-        // Auto-play music on first user interaction
-        document.addEventListener('click', function initMusic() {
-            if (!isPlaying) {
                 bgMusic.play().then(() => {
-                    isPlaying = true;
                     musicControl.classList.remove('paused');
+                    isPlaying = true;
                 }).catch(e => {
-                    console.log('Autoplay prevented:', e);
+                    console.log('Music play failed:', e);
                 });
             }
-            document.removeEventListener('click', initMusic);
-        }, { once: true });
+        }
         
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
