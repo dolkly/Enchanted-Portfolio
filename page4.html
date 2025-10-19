@@ -59,6 +59,12 @@
             background-position: center;
             opacity: 0.8;
             z-index: 0;
+            animation: backgroundPulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes backgroundPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.6; }
         }
         
         /* Header Section */
@@ -77,6 +83,12 @@
             object-fit: contain;
             transition: transform 0.3s ease;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            animation: floatCrest 3s ease-in-out infinite;
+        }
+        
+        @keyframes floatCrest {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .hogwarts-crest {
@@ -85,6 +97,7 @@
         
         .hogwarts-crest:hover {
             transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 8px 16px rgba(255,215,0,0.6));
         }
         
         /* Placeholder for crests if images not provided */
@@ -119,6 +132,18 @@
             max-width: 700px;
             position: relative;
             z-index: 10;
+            animation: titleEntrance 1.5s ease-out;
+        }
+        
+        @keyframes titleEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
         .title-banner-img {
@@ -126,6 +151,13 @@
             height: auto;
             display: block;
             margin: 0 auto;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5)); }
+            50% { filter: drop-shadow(0 10px 40px rgba(255,215,0,0.4)); }
         }
         
         .title-scroll-placeholder {
@@ -249,6 +281,12 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            animation: dividerFade 2s ease-in-out;
+        }
+        
+        @keyframes dividerFade {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
         .section-divider-placeholder {
@@ -285,6 +323,18 @@
             color: #2d2416;
             margin: 20px 0 50px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleAppear 1s ease-out;
+        }
+        
+        @keyframes titleAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* Envelope Grid */
@@ -307,11 +357,24 @@
             cursor: pointer;
             transition: transform 0.4s ease, filter 0.3s ease;
             filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+            animation: envelopeFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes envelopeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
         
         .envelope:hover {
             transform: translateY(-15px) scale(1.08);
             filter: drop-shadow(0 15px 30px rgba(0,0,0,0.4));
+            animation: envelopeShake 0.5s ease-in-out;
+        }
+        
+        @keyframes envelopeShake {
+            0%, 100% { transform: translateY(-15px) scale(1.08) rotate(0deg); }
+            25% { transform: translateY(-15px) scale(1.08) rotate(-2deg); }
+            75% { transform: translateY(-15px) scale(1.08) rotate(2deg); }
         }
         
         .envelope-img {
@@ -361,6 +424,12 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             position: relative;
             z-index: 2;
+            animation: sealPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes sealPulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+            50% { box-shadow: 0 4px 25px rgba(139,0,0,0.7); }
         }
         
         /* Pop-up Parchment */
@@ -419,6 +488,12 @@
             max-height: 85vh;
             overflow-y: auto;
             clip-path: polygon(2% 0%, 98% 0%, 100% 2%, 100% 98%, 98% 100%, 2% 100%, 0% 98%, 0% 2%);
+            animation: parchmentGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes parchmentGlow {
+            0%, 100% { box-shadow: 0 0 60px rgba(255,215,0,0.4), inset 0 0 80px rgba(139,111,71,0.15); }
+            50% { box-shadow: 0 0 80px rgba(255,215,0,0.6), inset 0 0 100px rgba(139,111,71,0.25); }
         }
         
         .parchment-bg-placeholder::before {
@@ -453,6 +528,12 @@
             transition: all 0.3s ease;
             z-index: 100;
             font-weight: bold;
+            animation: arrowBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-5px); }
         }
         
         .back-arrow:hover {
@@ -468,6 +549,12 @@
             text-align: justify;
             position: relative;
             z-index: 10;
+            animation: textFade 1s ease-out;
+        }
+        
+        @keyframes textFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .parchment-content h2 {
@@ -476,6 +563,12 @@
             margin-bottom: 30px;
             font-size: 2.5rem;
             color: #2d2416;
+            animation: titleShimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleShimmer {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+            50% { text-shadow: 2px 2px 8px rgba(255,215,0,0.3); }
         }
         
         /* Decorative placeholder images on parchment */
@@ -491,6 +584,12 @@
             width: 70px;
             height: 70px;
             z-index: 100;
+            animation: logoSpin 10s linear infinite;
+        }
+        
+        @keyframes logoSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         
         .hp-logo-img {
@@ -521,6 +620,12 @@
             width: 90px;
             height: 90px;
             z-index: 100;
+            animation: badgeBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgeBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .platform-badge-img {
@@ -601,6 +706,13 @@
             width: 50px;
             height: 70px;
             z-index: 100;
+            animation: quillWrite 3s ease-in-out infinite;
+        }
+        
+        @keyframes quillWrite {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
         }
         
         .quill-img {
@@ -640,6 +752,47 @@
             object-position: bottom;
         }
         
+        /* Music Control Button */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #8b0000, #6b0000);
+            border: 4px solid #d4a574;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .music-control:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 8px 30px rgba(255,215,0,0.6);
+        }
+        
+        .music-control::before {
+            content: '♪';
+            font-size: 30px;
+            color: #d4a574;
+            font-weight: bold;
+        }
+        
+        .music-control.paused::before {
+            content: '❙❙';
+            font-size: 24px;
+        }
         
         /* Responsive Design */
         @media (max-width: 1024px) {
@@ -689,6 +842,13 @@
                 width: 45px;
                 height: 45px;
                 font-size: 22px;
+            }
+            
+            .music-control {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
             }
         }
         
@@ -747,15 +907,46 @@
                 opacity: 0.9;
             }
         }
+        
+        /* Falling Stars Effect */
+        .falling-star {
+            position: fixed;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, transparent, gold);
+            pointer-events: none;
+            z-index: 40;
+            animation: fall 3s linear infinite;
+        }
+        
+        @keyframes fall {
+            from {
+                transform: translateY(-100px) translateX(0) rotate(45deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) translateX(100px) rotate(45deg);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music/Island_of_Spells_🌟🌊_–_Magical_music_by_Dmitriy_Sevostyanov_@dspromusic(128k).mp3" type="audio/mpeg">
+        <!-- Replace 'your-background-music.mp3' with your actual music file path -->
+    </audio>
+    
+    <!-- Music Control Button -->
+    <div class="music-control" id="musicControl" onclick="toggleMusic()"></div>
+    
     <!-- Main Container -->
     <div class="main-container">
         <!-- Header with Crests -->
         <div class="header">
             <!-- Hogwarts Crest (Clickable) -->
-            <img src="p4image/bb5e386e-7887-433b-8f1c-c5b02507ffcb-removebg-preview.png" alt="Hogwarts Crest" class="crest-img" onclick="window.location.href='page2.html'">
+            <img src="p4image/bb5e386e-7887-433b-8f1c-c5b02507ffcb-removebg-preview.png" alt="Hogwarts Crest" class="crest-img hogwarts-crest" onclick="window.location.href='page2.html'">
 
             <!-- Replace above with: <img src="your-hogwarts-crest.png" class="crest-img hogwarts-crest" onclick="goToHome()" alt="Hogwarts Crest"> -->
             
@@ -773,9 +964,7 @@
             <!-- Option 2: Placeholder scroll -->
              <div class="title-banner">
                 <img src="p4image/590013d6-0814-440e-8a4b-acf4b94ce23f.png" class="title-banner-img" alt="Historical Stories">
-</div>
-
-    
+            </div>
         </div>
         
         <!-- Animated Flying Elements -->
@@ -925,6 +1114,38 @@
     
     <script>
         // ============================================
+        // BACKGROUND MUSIC CONTROL
+        // ============================================
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.classList.add('paused');
+                isPlaying = false;
+            } else {
+                bgMusic.play();
+                musicControl.classList.remove('paused');
+                isPlaying = true;
+            }
+        }
+        
+        // Auto-play music on first user interaction
+        document.addEventListener('click', function initMusic() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicControl.classList.remove('paused');
+                }).catch(e => {
+                    console.log('Autoplay prevented:', e);
+                });
+            }
+            document.removeEventListener('click', initMusic);
+        }, { once: true });
+        
+        // ============================================
         // CURSOR TRAIL EFFECT
         // ============================================
         document.addEventListener('mousemove', (e) => {
@@ -955,47 +1176,61 @@
         createParticles();
         
         // ============================================
+        // CREATE FALLING STARS EFFECT
+        // ============================================
+        function createFallingStars() {
+            setInterval(() => {
+                const star = document.createElement('div');
+                star.className = 'falling-star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDuration = (2 + Math.random() * 2) + 's';
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 5000);
+            }, 3000);
+        }
+        createFallingStars();
+        
+        // ============================================
         // STORY CONTENT DATA
         // ============================================
         const stories = {
-    education1: {
-        title: "The Beginning Spell — Guinacutan Elementary School",
-        content: "Once upon a time, in the quiet village of Guinacutan, a young dreamer began his magical journey through learning.<br><br>Each morning, the echo of laughter and the gentle rustle of notebooks filled the air — for this was where Kenneth Jane first discovered the joy of friendship and curiosity.<br><br>At Guinacutan Elementary School, spells weren’t cast with wands but with pencils and chalk. It was here he learned not just to read and write, but to dream — to believe that knowledge could open portals to infinite worlds.<br><br>And while the lessons have long been written in his past, the memories of those friends and early adventures still glow like fireflies in his heart, never forgotten."
-    },
-    education2: {
-        title: "The Journey of Transformation — Sarah Jane Ferrer High School → Vinzons Pilot High School",
-        content: "As the pages of time turned, Kenneth entered the enchanted corridors of Sarah Jane Ferrer High School — a realm filled with lessons that challenged his courage and wisdom.<br><br>Yet fate had another spell in store.<br><br>Midway through his academic quest, he found himself in a new kingdom — Vinzons Pilot High School, where new faces awaited and new chapters unfolded.<br><br>Here, he faced trials, formed unbreakable bonds, and uncovered the magic of perseverance.<br><br>It was within these castle walls that Kenneth graduated with honor — proof that no change of path can dim the light of one’s destiny."
-    },
-    education3: {
-        title: "The Ongoing Saga — Camarines Norte State College",
-        content: "Now, the young wizard studies at Camarines Norte State College, pursuing the Bachelor of Science in Information Systems.<br><br>This chapter of his story is one of deeper enchantment — where knowledge meets innovation, and dreams begin to take their final form.<br><br>Each day, he writes spells not on parchment but in code, crafting ideas into reality.<br><br>Here, Kenneth continues to grow — an explorer in the digital realm, learning that magic can live in logic, and that every line of code is a spark of creation."
-    },
-    experience1: {
-        title: "The Pathmaker’s Scroll — NSTP & BITSCON",
-        content: "In this tale, Kenneth became not just a student, but a leader.<br><br>During the NSTP program, he was chosen to guide his teammates — to carve a safe and clear path for others to follow. It was a journey of service, responsibility, and heart.<br><br>Later, another spell was added to his scroll: BITSCON — a grand gathering of tech sorcerers and digital innovators.<br><br>There, Kenneth absorbed the wisdom of the realm of technology and proudly earned his certificate of participation, marking another step in his adventure toward mastery."
-    },
-    experience2: {
-        title: "The Creation Spell — Liham Café V1 & V2",
-        content: "Every wizard has a spell that defines them — and for Kenneth, it was Liham Café.<br><br>Born from a spark of inspiration and brewed with passion, Liham Café V1 became his first great digital enchantment. It was more than a project; it was a story — a space where letters carried emotions across time.<br><br>As the spell evolved, Liham Café V2 emerged — stronger, wiser, and more heartfelt, proving that even digital creations can hold human warmth."
-    },
-    experience3: {
-        title: "The Fellowship of Code — PASSCSE App",
-        content: "In his next quest, Kenneth joined forces with four other wizards to create something truly purposeful — PASSCSE, an application to help review for the Civil Service Examination.<br><br>Each member carried their own power — design, logic, code, and creativity — but Kenneth’s contribution shined like a guiding charm. Together, they built an app that didn’t just function, but inspired others to chase their dreams."
-    },
-    life1: {
-        title: "The Wand of Simplicity",
-        content: "Beyond the halls of learning, I live a simple yet meaningful life. I enjoy the calm mornings, the scent of coffee, and the warmth of sunlight that slips through my window. I find joy in small things — a quiet walk, laughter with friends, or moments of peace where I can simply be myself. Life outside the classroom isn’t about grades or deadlines — it’s about living with gratitude and balance, and finding magic in ordinary days."
-    },
-    life2: {
-        title: "The Enchanted Hobby Room",
-        content: "When the world slows down, I retreat into my own magical space — a place where creativity flows freely. Sometimes I’m writing letters, designing, or exploring ideas that spark my imagination. Other times, I enjoy music, movies, or spending time with people who make me laugh. These hobbies aren’t just pastimes — they are spells that keep my heart light, my mind inspired, and my spirit alive."
-    },
-    life3: {
-        title: "The Map of Tomorrow",
-        content: "Outside the classroom, I’m also a dreamer and a planner. I imagine a future where I can create, inspire, and bring ideas to life — perhaps through technology, art, or meaningful projects. I want to explore the world, meet new people, and keep growing as a person. My life may not always follow a straight path, but with determination as my compass and passion as my guide, I know I’ll always find my way."
-    }
-};
-
+            education1: {
+                title: "The Beginning Spell — Guinacutan Elementary School",
+                content: "Once upon a time, in the quiet village of Guinacutan, a young dreamer began his magical journey through learning.<br><br>Each morning, the echo of laughter and the gentle rustle of notebooks filled the air — for this was where Kenneth Jane first discovered the joy of friendship and curiosity.<br><br>At Guinacutan Elementary School, spells weren't cast with wands but with pencils and chalk. It was here he learned not just to read and write, but to dream — to believe that knowledge could open portals to infinite worlds.<br><br>And while the lessons have long been written in his past, the memories of those friends and early adventures still glow like fireflies in his heart, never forgotten."
+            },
+            education2: {
+                title: "The Journey of Transformation — Sarah Jane Ferrer High School → Vinzons Pilot High School",
+                content: "As the pages of time turned, Kenneth entered the enchanted corridors of Sarah Jane Ferrer High School — a realm filled with lessons that challenged his courage and wisdom.<br><br>Yet fate had another spell in store.<br><br>Midway through his academic quest, he found himself in a new kingdom — Vinzons Pilot High School, where new faces awaited and new chapters unfolded.<br><br>Here, he faced trials, formed unbreakable bonds, and uncovered the magic of perseverance.<br><br>It was within these castle walls that Kenneth graduated with honor — proof that no change of path can dim the light of one's destiny."
+            },
+            education3: {
+                title: "The Ongoing Saga — Camarines Norte State College",
+                content: "Now, the young wizard studies at Camarines Norte State College, pursuing the Bachelor of Science in Information Systems.<br><br>This chapter of his story is one of deeper enchantment — where knowledge meets innovation, and dreams begin to take their final form.<br><br>Each day, he writes spells not on parchment but in code, crafting ideas into reality.<br><br>Here, Kenneth continues to grow — an explorer in the digital realm, learning that magic can live in logic, and that every line of code is a spark of creation."
+            },
+            experience1: {
+                title: "The Pathmaker's Scroll — NSTP & BITSCON",
+                content: "In this tale, Kenneth became not just a student, but a leader.<br><br>During the NSTP program, he was chosen to guide his teammates — to carve a safe and clear path for others to follow. It was a journey of service, responsibility, and heart.<br><br>Later, another spell was added to his scroll: BITSCON — a grand gathering of tech sorcerers and digital innovators.<br><br>There, Kenneth absorbed the wisdom of the realm of technology and proudly earned his certificate of participation, marking another step in his adventure toward mastery."
+            },
+            experience2: {
+                title: "The Creation Spell — Liham Café V1 & V2",
+                content: "Every wizard has a spell that defines them — and for Kenneth, it was Liham Café.<br><br>Born from a spark of inspiration and brewed with passion, Liham Café V1 became his first great digital enchantment. It was more than a project; it was a story — a space where letters carried emotions across time.<br><br>As the spell evolved, Liham Café V2 emerged — stronger, wiser, and more heartfelt, proving that even digital creations can hold human warmth."
+            },
+            experience3: {
+                title: "The Fellowship of Code — PASSCSE App",
+                content: "In his next quest, Kenneth joined forces with four other wizards to create something truly purposeful — PASSCSE, an application to help review for the Civil Service Examination.<br><br>Each member carried their own power — design, logic, code, and creativity — but Kenneth's contribution shined like a guiding charm. Together, they built an app that didn't just function, but inspired others to chase their dreams."
+            },
+            life1: {
+                title: "The Wand of Simplicity",
+                content: "Beyond the halls of learning, I live a simple yet meaningful life. I enjoy the calm mornings, the scent of coffee, and the warmth of sunlight that slips through my window. I find joy in small things — a quiet walk, laughter with friends, or moments of peace where I can simply be myself. Life outside the classroom isn't about grades or deadlines — it's about living with gratitude and balance, and finding magic in ordinary days."
+            },
+            life2: {
+                title: "The Enchanted Hobby Room",
+                content: "When the world slows down, I retreat into my own magical space — a place where creativity flows freely. Sometimes I'm writing letters, designing, or exploring ideas that spark my imagination. Other times, I enjoy music, movies, or spending time with people who make me laugh. These hobbies aren't just pastimes — they are spells that keep my heart light, my mind inspired, and my spirit alive."
+            },
+            life3: {
+                title: "The Map of Tomorrow",
+                content: "Outside the classroom, I'm also a dreamer and a planner. I imagine a future where I can create, inspire, and bring ideas to life — perhaps through technology, art, or meaningful projects. I want to explore the world, meet new people, and keep growing as a person. My life may not always follow a straight path, but with determination as my compass and passion as my guide, I know I'll always find my way."
+            }
+        };
         
         // ============================================
         // OPEN PARCHMENT FUNCTION
