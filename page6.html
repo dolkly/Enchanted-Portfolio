@@ -615,6 +615,48 @@
             }
         }
 
+        /* Music Control Button */
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #8b0000, #6b0000);
+            border: 4px solid #d4a574;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            animation: musicPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .music-control:hover {
+            transform: scale(1.2) rotate(10deg);
+            box-shadow: 0 8px 30px rgba(255,215,0,0.6);
+        }
+        
+        .music-control::before {
+            content: '♪';
+            font-size: 30px;
+            color: #d4a574;
+            font-weight: bold;
+        }
+        
+        .music-control.paused::before {
+            content: '❙❙';
+            font-size: 24px;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .main-container {
@@ -757,6 +799,15 @@
     </style>
 </head>
 <body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music/Island_of_Spells_🌟🌊_–_Magical_music_by_Dmitriy_Sevostyanov_@dspromusic(128k).mp3" type="audio/mpeg">
+        <!-- Replace 'your-background-music.mp3' with your actual music file path -->
+    </audio>
+
+    <!-- Music Control Button -->
+    <div class="music-control" id="musicControl" onclick="toggleMusic()"></div>
+
     <!-- Floating Candles -->
     <div class="floating-candles" id="candlesContainer"></div>
 
@@ -841,6 +892,38 @@
     </div>
 
     <script>
+        // ============================================
+        // BACKGROUND MUSIC CONTROL
+        // ============================================
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicControl.classList.add('paused');
+                isPlaying = false;
+            } else {
+                bgMusic.play();
+                musicControl.classList.remove('paused');
+                isPlaying = true;
+            }
+        }
+        
+        // Auto-play music on first user interaction
+        document.addEventListener('click', function initMusic() {
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicControl.classList.remove('paused');
+                }).catch(e => {
+                    console.log('Autoplay prevented:', e);
+                });
+            }
+            document.removeEventListener('click', initMusic);
+        }, { once: true });
+
         // Create Floating Candles
         function createCandles() {
             const container = document.getElementById('candlesContainer');
