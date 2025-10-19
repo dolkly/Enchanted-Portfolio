@@ -316,7 +316,6 @@
             100% { transform: translateY(0) translateX(0); }
         }
 
-        /* Music Control Button */
         .music-control {
             position: fixed;
             bottom: 30px;
@@ -356,6 +355,216 @@
         .music-control.paused::before {
             content: '❙❙';
             font-size: 24px;
+        }
+
+        /* Help/Guide Button */
+        .help-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #b48226, #d5b227);
+            border: 4px solid #faf760;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            animation: helpPulse 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes helpPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 6px 20px rgba(0,0,0,0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 8px 30px rgba(251, 222, 2, 0.6); }
+        }
+        
+        .help-button:hover {
+            transform: scale(1.2) rotate(-10deg);
+            box-shadow: 0 8px 30px rgba(96,165,250,0.8);
+        }
+        
+        .help-button::before {
+            content: '?';
+            font-size: 34px;
+            color: #60a5fa;
+            font-weight: bold;
+            font-family: Georgia, serif;
+        }
+
+        /* Guide Overlay */
+        .guide-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .guide-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .guide-content {
+            background: linear-gradient(135deg, #1a0a0a 0%, #2d1b1b 100%);
+            border: 3px solid #d4a574;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            width: 85%;
+            box-shadow: 0 0 50px rgba(212, 165, 116, 0.5), inset 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            animation: guideAppear 0.6s ease-out;
+        }
+
+        @keyframes guideAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .guide-content::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #d4a574, #8b6914, #d4a574);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .guide-title {
+            font-size: 28px;
+            color: #d4a574;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(212, 165, 116, 0.8);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .guide-instructions {
+            color: #e8d4b8;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .guide-instructions p {
+            margin-bottom: 12px;
+        }
+
+        .guide-instructions strong {
+            color: #ffd700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .guide-sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .guide-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .guide-section-title {
+            color: #ffd700;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .guide-section-text {
+            color: #c9b896;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .guide-button {
+            background: linear-gradient(135deg, #8b0000, #6b0000);
+            color: #d4a574;
+            border: 3px solid #d4a574;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.5);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .guide-button:hover {
+            background: linear-gradient(135deg, #a00000, #800000);
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        .guide-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Make sure guide button is clickable */
+        .guide-content {
+            position: relative;
+            z-index: 10001;
+        }
+
+        .guide-button {
+            position: relative;
+            z-index: 10002;
+            pointer-events: auto;
+        }
+
+        .guide-icon {
+            text-align: center;
+            font-size: 50px;
+            margin-bottom: 15px;
+            animation: floatIcon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         /* 4K and Large Monitors (2560px+) */
@@ -475,6 +684,32 @@
             .crest:active .label {
                 opacity: 1;
             }
+
+            .guide-content {
+                padding: 25px;
+                max-width: 450px;
+            }
+
+            .guide-title {
+                font-size: 24px;
+            }
+
+            .guide-icon {
+                font-size: 45px;
+            }
+
+            .guide-instructions {
+                font-size: 13px;
+            }
+
+            .guide-section-text {
+                font-size: 11px;
+            }
+
+            .guide-button {
+                padding: 10px 30px;
+                font-size: 15px;
+            }
         }
 
         /* Large Mobile Landscape / Small Tablet (600px - 767px) */
@@ -513,6 +748,54 @@
             .crest:active .label {
                 opacity: 1;
             }
+
+            .guide-content {
+                padding: 20px;
+                max-width: 400px;
+                width: 90%;
+            }
+
+            .guide-title {
+                font-size: 22px;
+                margin-bottom: 15px;
+            }
+
+            .guide-icon {
+                font-size: 40px;
+                margin-bottom: 12px;
+            }
+
+            .guide-instructions {
+                font-size: 12px;
+                margin-bottom: 15px;
+            }
+
+            .guide-instructions p {
+                margin-bottom: 10px;
+            }
+
+            .guide-sections {
+                gap: 8px;
+                margin-bottom: 15px;
+            }
+
+            .guide-section {
+                padding: 10px;
+            }
+
+            .guide-section-title {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+
+            .guide-section-text {
+                font-size: 11px;
+            }
+
+            .guide-button {
+                padding: 10px 25px;
+                font-size: 14px;
+            }
         }
 
         /* Mobile Landscape (480px - 599px) */
@@ -546,6 +829,54 @@
             .label {
                 font-size: 2vw;
                 bottom: -2.5vmin;
+            }
+
+            .guide-content {
+                padding: 18px;
+                max-width: 350px;
+                width: 92%;
+            }
+
+            .guide-title {
+                font-size: 20px;
+                margin-bottom: 12px;
+            }
+
+            .guide-icon {
+                font-size: 35px;
+                margin-bottom: 10px;
+            }
+
+            .guide-instructions {
+                font-size: 11px;
+                margin-bottom: 12px;
+            }
+
+            .guide-instructions p {
+                margin-bottom: 8px;
+            }
+
+            .guide-sections {
+                gap: 7px;
+                margin-bottom: 12px;
+            }
+
+            .guide-section {
+                padding: 8px;
+            }
+
+            .guide-section-title {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            .guide-section-text {
+                font-size: 10px;
+            }
+
+            .guide-button {
+                padding: 9px 22px;
+                font-size: 13px;
             }
         }
 
@@ -582,6 +913,89 @@
                 bottom: -2vmin;
                 letter-spacing: 0.1vmin;
             }
+
+            .guide-content {
+                padding: 15px;
+                max-width: 320px;
+                width: 93%;
+                border-width: 2px;
+            }
+
+            .guide-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+                letter-spacing: 1px;
+            }
+
+            .guide-icon {
+                font-size: 32px;
+                margin-bottom: 8px;
+            }
+
+            .guide-instructions {
+                font-size: 10px;
+                line-height: 1.4;
+                margin-bottom: 10px;
+            }
+
+            .guide-instructions p {
+                margin-bottom: 6px;
+            }
+
+            .guide-sections {
+                gap: 6px;
+                margin-bottom: 10px;
+            }
+
+            .guide-section {
+                padding: 7px;
+                border-radius: 8px;
+            }
+
+            .guide-section-title {
+                font-size: 10px;
+                margin-bottom: 3px;
+                letter-spacing: 0.5px;
+            }
+
+            .guide-section-text {
+                font-size: 9px;
+                line-height: 1.4;
+            }
+
+            .guide-button {
+                padding: 8px 20px;
+                font-size: 12px;
+                border-width: 2px;
+                letter-spacing: 1px;
+            }
+
+            .music-control {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
+            }
+
+            .music-control::before {
+                font-size: 24px;
+            }
+
+            .music-control.paused::before {
+                font-size: 20px;
+            }
+
+            .help-button {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                border-width: 3px;
+            }
+
+            .help-button::before {
+                font-size: 28px;
+            }
         }
 
         /* Small Mobile (320px - 374px) */
@@ -616,6 +1030,90 @@
                 font-size: 2.5vw;
                 bottom: -1.8vmin;
                 letter-spacing: 0.05vmin;
+            }
+
+            .guide-content {
+                padding: 12px;
+                max-width: 300px;
+                width: 95%;
+                border-width: 2px;
+                border-radius: 15px;
+            }
+
+            .guide-title {
+                font-size: 16px;
+                margin-bottom: 8px;
+                letter-spacing: 1px;
+            }
+
+            .guide-icon {
+                font-size: 28px;
+                margin-bottom: 6px;
+            }
+
+            .guide-instructions {
+                font-size: 9px;
+                line-height: 1.3;
+                margin-bottom: 8px;
+            }
+
+            .guide-instructions p {
+                margin-bottom: 5px;
+            }
+
+            .guide-sections {
+                gap: 5px;
+                margin-bottom: 8px;
+            }
+
+            .guide-section {
+                padding: 6px;
+                border-radius: 6px;
+            }
+
+            .guide-section-title {
+                font-size: 9px;
+                margin-bottom: 3px;
+                letter-spacing: 0.3px;
+            }
+
+            .guide-section-text {
+                font-size: 8px;
+                line-height: 1.3;
+            }
+
+            .guide-button {
+                padding: 7px 18px;
+                font-size: 11px;
+                border-width: 2px;
+                letter-spacing: 0.5px;
+            }
+
+            .music-control {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                left: 15px;
+            }
+
+            .music-control::before {
+                font-size: 20px;
+            }
+
+            .music-control.paused::before {
+                font-size: 18px;
+            }
+
+            .help-button {
+                width: 45px;
+                height: 45px;
+                bottom: 15px;
+                right: 15px;
+                border-width: 3px;
+            }
+
+            .help-button::before {
+                font-size: 24px;
             }
         }
 
@@ -658,14 +1156,63 @@
     </style>
 </head>
 <body>
+    <!-- Guide Overlay -->
+    <div class="guide-overlay" id="guideOverlay">
+        <div class="guide-content" onclick="event.stopPropagation()">
+            <div class="guide-icon">✨🧙✨</div>
+            <div class="guide-title">Welcome to Hogwarts!</div>
+            <div class="guide-instructions">
+                <p><strong>How to Navigate:</strong></p>
+                <div class="guide-sections">
+                    <div class="guide-section">
+                        <div class="guide-section-title">🖱️ Desktop Users</div>
+                        <div class="guide-section-text">Hover over the house crests to see magical connections light up. Click any crest to enter that section of the portfolio.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">📱 Mobile Users</div>
+                        <div class="guide-section-text">Tap on any house crest to explore different sections. Hold briefly to see labels appear.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">🔮 Hogwarts Crest (Center)</div>
+                        <div class="guide-section-text">This is your Home Crest. Click it to return to the main page of my portfolio — the heart of all enchantments.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">❤️ Red Crest – About Me</div>
+                        <div class="guide-section-text">This crest reveals who I am beyond the magic — my story, journey, and the light that drives my creations.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">💚 Green Crest – Historical Stories</div>
+                        <div class="guide-section-text">Unlocks my past and experiences. Each enchanted envelope hides a magical story about my education, experiences, and life outside the classroom.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">💛 Yellow Crest – Masterpieces</div>
+                        <div class="guide-section-text">A portal to my creations and achievements. Click the pictures within to open gateways to my featured works and external links.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">💙 Blue Crest – Invitation </div>
+                        <div class="guide-section-text">The path to connect with me — a page of letters and invitations, where you can find my contact portals or send me a magical message.</div>
+                    </div>
+                    <div class="guide-section">
+                        <div class="guide-section-title">🎵 Music Control</div>
+                        <div class="guide-section-text">Click the music button in the bottom-left corner to play or pause the magical background music.</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 20px;"><strong>Choose your path wisely, young wizard! 🪄</strong></p>
+            </div>
+            <button class="guide-button" onclick="closeGuide(); event.stopPropagation();">Begin Your Journey</button>
+        </div>
+    </div>
+
     <!-- Background Music -->
     <audio id="bgMusic" loop>
         <source src="music/bba886ad51d319b2b3411acf45cebbbe_2.mp3" type="audio/mpeg">
-        <!-- Replace 'your-background-music.mp3' with your actual music file path -->
     </audio>
 
     <!-- Music Control Button -->
     <div class="music-control" id="musicControl" onclick="toggleMusic()"></div>
+
+    <!-- Help/Guide Button -->
+    <div class="help-button" id="helpButton" onclick="openGuide()"></div>
 
     <div class="background" id="bg"></div>
     <canvas class="electric-canvas" id="electricCanvas"></canvas>
@@ -706,6 +1253,29 @@
 
     <script>
         // ============================================
+        // GUIDE OVERLAY CONTROL
+        // ============================================
+        function closeGuide() {
+            const guideOverlay = document.getElementById('guideOverlay');
+            guideOverlay.classList.add('hidden');
+            
+            // Try to start music when guide is closed
+            if (!isPlaying) {
+                bgMusic.play().then(() => {
+                    isPlaying = true;
+                    musicControl.classList.remove('paused');
+                }).catch(e => {
+                    console.log('Music autoplay prevented');
+                });
+            }
+        }
+
+        function openGuide() {
+            const guideOverlay = document.getElementById('guideOverlay');
+            guideOverlay.classList.remove('hidden');
+        }
+
+        // ============================================
         // BACKGROUND MUSIC CONTROL
         // ============================================
         const bgMusic = document.getElementById('bgMusic');
@@ -718,7 +1288,6 @@
                 isPlaying = true;
                 musicControl.classList.remove('paused');
             }).catch(error => {
-                // If autoplay is blocked, try on first user interaction
                 console.log('Autoplay blocked, waiting for user interaction');
                 isPlaying = false;
                 musicControl.classList.add('paused');
@@ -735,7 +1304,6 @@
                     console.log('Music play failed:', e);
                 });
             }
-            // Remove listeners after first successful play
             document.removeEventListener('click', startMusicOnInteraction);
             document.removeEventListener('touchstart', startMusicOnInteraction);
             document.removeEventListener('keydown', startMusicOnInteraction);
@@ -760,7 +1328,9 @@
             }
         }
 
-        
+        // ============================================
+        // CANVAS SETUP
+        // ============================================
         const canvas = document.getElementById('electricCanvas');
         const ctx = canvas.getContext('2d');
         
